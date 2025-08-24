@@ -47,13 +47,6 @@ This repository is strictly a **link-only reference**, designed for convenience 
 
 ---
 
-##  Repository License
-
-This repository’s own content (README text, layout) is licensed under the **MIT License**.  
-See [LICENSE](./LICENSE) for details.
-
----
-
 ##  Contributions Welcome
 
 Please feel free to submit improvements via pull requests:
