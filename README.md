@@ -19,7 +19,7 @@ Access the core resources related to Amazon Elastic VMware Service:
 
 - **Deep Dive Presentation (PDF)** – Re:Invent 2024 session "Deep Dive into Amazon EVS"  
   [Download the deep dive slides (Re:Invent 2024)](https://reinvent.awsevents.com/content/dam/reinvent/2024/slides/mam/MAM237-NEW_Deep-dive-into-Amazon-Elastic-VMware-Service.pdf)  
-  (© 2024 Amazon Web Services, Inc. or its affiliates. All rights reserved.) :contentReference[oaicite:1]{index=1}
+  (© 2024 Amazon Web Services, Inc. or its affiliates. All rights reserved.)
 
 ---
 
