@@ -1,0 +1,71 @@
+terraform {
+  required_version = ">= 1.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
+data "aws_vpc" "default" {
+  count   = var.vpc_id == null ? 1 : 0
+  default = true
+}
+
+locals {
+  vpc_id = var.vpc_id != null ? var.vpc_id : data.aws_vpc.default[0].id
+  
+  common_tags = merge(var.tags, {
+    Name        = var.cluster_name
+    Environment = var.environment
+    ManagedBy   = "terraform"
+  })
+}
+
+resource "aws_security_group" "evs_cluster" {
+  name_prefix = "${var.cluster_name}-evs-"
+  vpc_id      = local.vpc_id
+  description = "Security group for EVS cluster ${var.cluster_name}"
+
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = var.allowed_cidr_blocks
+    description = "HTTPS for vCenter"
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.allowed_cidr_blocks
+    description = "SSH access"
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    description = "All outbound traffic"
+  }
+
+  tags = merge(local.common_tags, {
+    Name = "${var.cluster_name}-evs-sg"
+  })
+}
+
+resource "aws_cloudwatch_log_group" "evs_cluster" {
+  name              = "/aws/evs/${var.cluster_name}"
+  retention_in_days = var.log_retention_days
+  
+  tags = merge(local.common_tags, {
+    Name = "${var.cluster_name}-logs"
+  })
+}

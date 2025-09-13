@@ -1,0 +1,48 @@
+# Include production requirements
+-r requirements.txt
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.12.0
+pytest-asyncio>=0.23.0
+pytest-xdist>=3.5.0
+moto>=4.2.0
+
+# Code quality
+black>=23.12.0
+flake8>=7.0.0
+mypy>=1.8.0
+isort>=5.13.0
+bandit>=1.7.5
+safety>=2.3.0
+
+# Pre-commit hooks
+pre-commit>=3.6.0
+
+# Documentation
+mkdocs>=1.5.0
+mkdocs-material>=9.5.0
+mkdocs-mermaid2-plugin>=1.1.0
+mkdocstrings>=0.24.0
+mkdocstrings-python>=1.8.0
+
+# Development tools
+ipython>=8.18.0
+jupyter>=1.0.0
+notebook>=7.0.0
+
+# Terraform validation
+python-hcl2>=4.3.0
+
+# Type stubs
+types-requests>=2.31.0
+types-PyYAML>=6.0.0
+types-python-dateutil>=2.8.0
+
+# Linting
+pylint>=3.0.0
+autopep8>=2.0.0
+
+# Security scanning
+semgrep>=1.52.0

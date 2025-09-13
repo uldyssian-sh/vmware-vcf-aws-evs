@@ -1,0 +1,95 @@
+# VMware VCF AWS EVS Integration Configuration
+# Copy this file to config.yaml and customize for your environment
+
+# AWS Configuration
+aws:
+  region: us-west-2
+  profile: default  # AWS CLI profile to use
+  
+# VMware vCenter Configuration
+vmware:
+  vcenter_server: vcenter.example.com
+  username: administrator@vsphere.local
+  # Password should be set via environment variable VCENTER_PASSWORD
+  port: 443
+  ssl_verify: true
+  
+# EVS Cluster Configuration
+evs:
+  default_cluster_name: production-evs
+  default_instance_type: i3.metal
+  default_node_count: 3
+  
+  # Storage configuration
+  storage:
+    type: gp3
+    size: 1000  # GB
+    
+  # Network configuration
+  network:
+    management_cidr: 10.0.1.0/24
+    vmotion_cidr: 10.0.2.0/24
+    vsan_cidr: 10.0.3.0/24
+    
+# Network Security
+security:
+  allowed_cidr_blocks:
+    - 10.0.0.0/8
+    - 192.168.0.0/16
+  
+  # SSH key for cluster access
+  ssh_key_name: my-evs-key
+  
+# Backup Configuration
+backup:
+  enabled: true
+  retention_days: 30
+  backup_window: "03:00-04:00"
+  
+# Monitoring Configuration
+monitoring:
+  cloudwatch:
+    enabled: true
+    log_retention_days: 30
+    
+  alarms:
+    enabled: true
+    sns_topic_arn: arn:aws:sns:us-west-2:123456789012:evs-alerts
+    
+# Migration Settings
+migration:
+  # Temporary storage for OVF files
+  temp_storage_path: /tmp/vcf-evs-migration
+  
+  # S3 bucket for OVF storage during migration
+  s3_bucket: my-evs-migration-bucket
+  
+  # Parallel migration settings
+  max_concurrent_migrations: 2
+  
+# Logging Configuration
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: logs/vcf-evs.log
+  max_file_size: 10MB
+  backup_count: 5
+  
+# Resource Tagging
+tags:
+  Environment: production
+  Project: vcf-evs-integration
+  Owner: infrastructure-team
+  CostCenter: engineering
+  
+# Advanced Settings
+advanced:
+  # API timeouts (seconds)
+  api_timeout: 300
+  
+  # Retry settings
+  max_retries: 3
+  retry_delay: 5
+  
+  # Performance tuning
+  thread_pool_size: 10

@@ -1,0 +1,100 @@
+site_name: VMware VCF AWS EVS Integration
+site_description: Comprehensive toolkit for integrating VMware Cloud Foundation with Amazon Elastic VMware Service
+site_author: VCF EVS Integration Team
+site_url: https://uldyssian-sh.github.io/vmware-vcf-aws-evs/
+
+repo_name: uldyssian-sh/vmware-vcf-aws-evs
+repo_url: https://github.com/uldyssian-sh/vmware-vcf-aws-evs
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: orange
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.action.edit
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: tutorials/installation.md
+    - Quick Start: tutorials/quickstart.md
+    - Configuration: tutorials/configuration.md
+  - Tutorials:
+    - VM Migration: tutorials/migration.md
+    - Monitoring Setup: tutorials/monitoring.md
+    - Backup & Recovery: tutorials/backup.md
+    - Troubleshooting: tutorials/troubleshooting.md
+  - Architecture:
+    - Overview: architecture/overview.md
+    - Components: architecture/components.md
+    - Security: architecture/security.md
+    - Networking: architecture/networking.md
+  - API Reference:
+    - Python API: api/python.md
+    - CLI Reference: api/cli.md
+    - Terraform Modules: api/terraform.md
+  - Examples:
+    - Basic Deployment: examples/basic.md
+    - Advanced Configuration: examples/advanced.md
+    - Multi-Region Setup: examples/multi-region.md
+  - Contributing:
+    - Development Guide: contributing/development.md
+    - Code Style: contributing/style.md
+    - Testing: contributing/testing.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+  - mermaid2
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - footnotes
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/uldyssian-sh/vmware-vcf-aws-evs
+    - icon: fontawesome/brands/aws
+      link: https://aws.amazon.com/evs/
+  version:
+    provider: mike
