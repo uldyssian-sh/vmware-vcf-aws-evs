@@ -69,3 +69,16 @@ resource "aws_cloudwatch_log_group" "evs_cluster" {
     Name = "${var.cluster_name}-logs"
   })
 }
+
+# Placeholder for EVS cluster (would be actual EVS resource when available)
+resource "null_resource" "evs_cluster_placeholder" {
+  triggers = {
+    cluster_name = var.cluster_name
+    instance_type = var.instance_type
+    node_count = var.node_count
+  }
+  
+  provisioner "local-exec" {
+    command = "echo 'EVS cluster ${var.cluster_name} would be created here'"
+  }
+}

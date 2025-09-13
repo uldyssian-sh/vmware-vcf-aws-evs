@@ -27,3 +27,8 @@ output "tags" {
   description = "Tags applied to the cluster resources"
   value       = local.common_tags
 }
+
+output "cluster_placeholder_id" {
+  description = "Placeholder for EVS cluster ID"
+  value       = null_resource.evs_cluster_placeholder.id
+}

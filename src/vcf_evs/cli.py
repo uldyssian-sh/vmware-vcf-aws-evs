@@ -4,8 +4,8 @@ import click
 from rich.console import Console
 from rich.table import Table
 
-from .aws import EVSClient
-from .utils import ConfigManager
+from vcf_evs.aws.evs_client import EVSClient
+from vcf_evs.utils.config import ConfigManager
 
 console = Console()
 
