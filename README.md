@@ -8,6 +8,8 @@
 
 A comprehensive toolkit for integrating VMware Cloud Foundation (VCF) with Amazon Elastic VMware Service (EVS), providing automation scripts, Terraform modules, and detailed documentation for seamless hybrid cloud operations.
 
+**Author**: LT - [GitHub Profile](https://github.com/uldyssian-sh)
+
 > **Based on official AWS documentation**: This toolkit implements best practices from the [AWS EVS User Guide](https://docs.aws.amazon.com/pdfs/evs/latest/userguide/evs-ug.pdf) and [Re:Invent 2024 Deep Dive](https://reinvent.awsevents.com/content/dam/reinvent/2024/slides/mam/MAM237-NEW_Deep-dive-into-Amazon-Elastic-VMware-Service.pdf).
 
 ## 🚀 Features
