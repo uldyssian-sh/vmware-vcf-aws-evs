@@ -33,12 +33,23 @@ variable "vpc_id" {
   description = "VPC ID where the cluster will be deployed"
   type        = string
   default     = null
+  validation {
+    condition     = var.vpc_id == null || can(regex("^vpc-[0-9a-f]{8,17}$", var.vpc_id))
+    error_message = "VPC ID must be a valid AWS VPC ID format (vpc-xxxxxxxx)."
+  }
 }
 
 variable "subnet_ids" {
   description = "List of subnet IDs for the cluster"
   type        = list(string)
   default     = null
+  validation {
+    condition = var.subnet_ids == null || (
+      length(var.subnet_ids) >= 1 && 
+      alltrue([for s in var.subnet_ids : can(regex("^subnet-[0-9a-f]{8,17}$", s))])
+    )
+    error_message = "Subnet IDs must be valid AWS subnet ID format (subnet-xxxxxxxx)."
+  }
 }
 
 variable "allowed_cidr_blocks" {

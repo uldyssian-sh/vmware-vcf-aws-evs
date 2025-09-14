@@ -8,9 +8,7 @@ terraform {
   }
 }
 
-data "aws_availability_zones" "available" {
-  state = "available"
-}
+
 
 data "aws_vpc" "default" {
   count   = var.vpc_id == null ? 1 : 0
@@ -61,9 +59,24 @@ resource "aws_security_group" "evs_cluster" {
   })
 }
 
+resource "aws_kms_key" "evs_logs" {
+  description             = "KMS key for EVS cluster logs encryption"
+  deletion_window_in_days = 7
+  
+  tags = merge(local.common_tags, {
+    Name = "${var.cluster_name}-logs-key"
+  })
+}
+
+resource "aws_kms_alias" "evs_logs" {
+  name          = "alias/${var.cluster_name}-evs-logs"
+  target_key_id = aws_kms_key.evs_logs.key_id
+}
+
 resource "aws_cloudwatch_log_group" "evs_cluster" {
   name              = "/aws/evs/${var.cluster_name}"
   retention_in_days = var.log_retention_days
+  kms_key_id        = aws_kms_key.evs_logs.arn
   
   tags = merge(local.common_tags, {
     Name = "${var.cluster_name}-logs"
