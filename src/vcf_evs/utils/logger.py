@@ -10,6 +10,11 @@ from typing import Optional
 def setup_logging(level: str = "INFO", log_file: Optional[str] = None) -> logging.Logger:
     """Set up logging configuration."""
     
+    # Validate log level
+    valid_levels = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
+    if level.upper() not in valid_levels:
+        level = 'INFO'
+    
     # Create logger
     logger = logging.getLogger("vcf_evs")
     logger.setLevel(getattr(logging, level.upper()))
@@ -37,9 +42,18 @@ def setup_logging(level: str = "INFO", log_file: Optional[str] = None) -> loggin
 
 def _safe_log_path(log_file: str) -> str:
     """Sanitize log file path to prevent path traversal and command injection."""
+    if not log_file or not isinstance(log_file, str):
+        log_file = 'default.log'
+    
     # Remove any shell metacharacters and path traversal attempts
     safe_name = os.path.basename(log_file)
-    safe_name = ''.join(c for c in safe_name if c.isalnum() or c in '.-_')
+    # Allow alphanumeric, dots, hyphens, underscores, and spaces
+    safe_name = ''.join(c for c in safe_name if c.isalnum() or c in '.-_ ')
+    safe_name = safe_name.strip()
+    
+    # Prevent empty names
+    if not safe_name:
+        safe_name = 'default'
     
     # Ensure .log extension
     if not safe_name.endswith('.log'):
@@ -49,4 +63,12 @@ def _safe_log_path(log_file: str) -> str:
     logs_dir = Path('logs')
     logs_dir.mkdir(exist_ok=True)
     
-    return str(logs_dir / safe_name)
+    # Resolve path and ensure it's within logs directory
+    full_path = logs_dir / safe_name
+    resolved_path = full_path.resolve()
+    
+    # Security check: ensure resolved path is within logs directory
+    if not str(resolved_path).startswith(str(logs_dir.resolve())):
+        raise ValueError("Invalid log file path")
+    
+    return str(resolved_path)
