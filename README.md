@@ -181,3 +181,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Note**: This project is not officially affiliated with AWS or VMware. It's a community-driven initiative to simplify VCF-EVS integration.
+## 📦 Documentation Notice
+
+Large PDF documentation files are available in the [Releases](https://github.com/uldyssian-sh/vmware-vcf-aws-evs/releases) section 
+to keep the repository lightweight and fast to clone.
+
+
