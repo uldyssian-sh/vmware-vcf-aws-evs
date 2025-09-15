@@ -14,7 +14,7 @@ graph TB
         Network[Network Infrastructure]
         Hardware[Hardware Security]
     end
-    
+
     subgraph "Customer Responsibility"
         OS[Guest OS Security]
         Apps[Application Security]
@@ -23,7 +23,7 @@ graph TB
         NSX[NSX Security Policies]
         vCenter[vCenter Security]
     end
-    
+
     subgraph "Shared Responsibility"
         Patches[Security Patches]
         Config[Security Configuration]
@@ -118,12 +118,12 @@ vcenter_sso:
     type: "Active Directory"
     domain: "company.local"
     base_dn: "DC=company,DC=local"
-    
+
   authentication:
     method: "SAML"
     idp_url: "https://adfs.company.local/adfs/services/trust"
     certificate_path: "/etc/ssl/certs/adfs.crt"
-    
+
   authorization:
     default_group: "EVS-Users"
     admin_group: "EVS-Administrators"
@@ -139,14 +139,14 @@ vcenter_roles:
       - "System.Anonymous"
       - "System.Read"
       - "VirtualMachine.Inventory.Read"
-      
+
   - name: "EVS-Operator"
     permissions:
       - "VirtualMachine.Interact.PowerOn"
       - "VirtualMachine.Interact.PowerOff"
       - "VirtualMachine.Interact.Suspend"
       - "VirtualMachine.Snapshot.Create"
-      
+
   - name: "EVS-Administrator"
     permissions:
       - "System.Admin"
@@ -286,7 +286,7 @@ nsx_firewall_rules:
     services:
       - "HTTP"
       - "HTTPS"
-    
+
   - name: "App-Tier-Inbound"
     section: "Application"
     action: "ALLOW"
@@ -296,7 +296,7 @@ nsx_firewall_rules:
       - "App-Tier-Security-Group"
     services:
       - "Custom-App-Port-8080"
-      
+
   - name: "DB-Tier-Inbound"
     section: "Application"
     action: "ALLOW"
@@ -306,7 +306,7 @@ nsx_firewall_rules:
       - "DB-Tier-Security-Group"
     services:
       - "MySQL"
-      
+
   - name: "Default-Deny"
     section: "Application"
     action: "DROP"
@@ -328,13 +328,13 @@ nsx_security_groups:
       - key: "Tier"
         operator: "EQUALS"
         value: "Web"
-        
+
   - name: "App-Tier-Security-Group"
     criteria:
       - key: "Tier"
         operator: "EQUALS"
         value: "App"
-        
+
   - name: "DB-Tier-Security-Group"
     criteria:
       - key: "Tier"
@@ -357,7 +357,7 @@ vsan_encryption:
     kms_key_id: "arn:aws:kms:us-west-2:123456789012:key/12345678-1234-1234-1234-123456789012"
     key_rotation: true
     rotation_period: "365d"
-    
+
   encryption_scope:
     - "All-VMs"
     - "vSAN-Datastore"
@@ -420,7 +420,7 @@ tls_configuration:
     - "ECDHE-RSA-AES128-GCM-SHA256"
     - "ECDHE-RSA-AES256-SHA384"
     - "ECDHE-RSA-AES128-SHA256"
-    
+
   certificate_management:
     ca_authority: "Internal-CA"
     certificate_renewal: "90d"
@@ -532,11 +532,11 @@ vcenter_audit:
       server: "log-collector.company.local"
       port: 514
       protocol: "TCP"
-      
+
     - type: "cloudwatch"
       log_group: "/aws/evs/vcenter-audit"
       log_stream: "vcenter-events"
-      
+
   events:
     - "user_login"
     - "user_logout"
@@ -564,12 +564,12 @@ security_scanning:
         - "EVS-Management-Network"
         - "EVS-VM-Network"
       credentials: "scan-credentials"
-      
+
     - name: "Qualys"
       type: "agent"
       deployment: "automatic"
       reporting: "weekly"
-      
+
   compliance_frameworks:
     - "CIS-VMware-vSphere-7.0"
     - "NIST-800-53"
@@ -586,19 +586,19 @@ patch_management:
     maintenance_window: "Saturday 2AM-6AM UTC"
     rollback_plan: "automatic"
     testing_cluster: "evs-test-cluster"
-    
+
   vcenter:
     schedule: "quarterly"
     maintenance_window: "Saturday 12AM-4AM UTC"
     backup_required: true
     rollback_plan: "manual"
-    
+
   vm_guests:
     windows:
       schedule: "monthly"
       auto_reboot: false
       wsus_server: "wsus.company.local"
-      
+
     linux:
       schedule: "monthly"
       auto_reboot: false
@@ -619,26 +619,26 @@ incident_response:
       - "Unusual network traffic patterns"
       - "Unauthorized process execution"
       - "Failed authentication attempts"
-      
+
     immediate_actions:
       - action: "Isolate VM"
         command: "vcf-evs vm-isolate --vm-name {vm_name}"
         timeout: "5m"
-        
+
       - action: "Create forensic snapshot"
         command: "vcf-evs snapshot --vm-name {vm_name} --description 'Forensic-{timestamp}'"
         timeout: "10m"
-        
+
       - action: "Notify security team"
         method: "sns"
         topic: "security-incidents"
-        
+
     investigation:
       - "Analyze VM memory dump"
       - "Review network traffic logs"
       - "Check file system integrity"
       - "Examine process execution history"
-      
+
     containment:
       - "Block malicious IP addresses"
       - "Update firewall rules"
@@ -655,22 +655,22 @@ data_breach_response:
     - level: "P1-Critical"
       criteria: "PII/PHI exposed"
       response_time: "15m"
-      
+
     - level: "P2-High"
       criteria: "Internal data exposed"
       response_time: "1h"
-      
+
   notification_requirements:
     internal:
       - "CISO"
       - "Legal team"
       - "Business stakeholders"
-      
+
     external:
       - "Regulatory authorities (72h)"
       - "Affected customers (72h)"
       - "Law enforcement (if required)"
-      
+
   evidence_preservation:
     - "Preserve all log files"
     - "Create forensic images"
@@ -692,18 +692,18 @@ soc2_controls:
       description: "Logical access controls"
       implementation: "IAM roles and MFA"
       testing: "quarterly"
-      
+
     - control: "CC6.2"
       description: "Authentication controls"
       implementation: "SSO integration"
       testing: "quarterly"
-      
+
   availability:
     - control: "A1.1"
       description: "System availability"
       implementation: "Multi-AZ deployment"
       testing: "monthly"
-      
+
   confidentiality:
     - control: "C1.1"
       description: "Data encryption"
@@ -719,20 +719,20 @@ gdpr_compliance:
   data_protection:
     - measure: "Data encryption at rest and in transit"
       implementation: "KMS and TLS"
-      
+
     - measure: "Access logging and monitoring"
       implementation: "CloudTrail and vCenter audit logs"
-      
+
     - measure: "Data retention policies"
       implementation: "Automated data lifecycle management"
-      
+
   privacy_rights:
     - right: "Right to be forgotten"
       implementation: "Data deletion procedures"
-      
+
     - right: "Data portability"
       implementation: "Data export capabilities"
-      
+
     - right: "Access to personal data"
       implementation: "Data access procedures"
 ```
@@ -751,13 +751,13 @@ vcenter_hardening:
     - "Configure password complexity requirements"
     - "Enable multi-factor authentication"
     - "Disable default accounts"
-    
+
   network:
     - "Disable unnecessary services"
     - "Configure firewall rules"
     - "Enable TLS 1.2+ only"
     - "Use certificate-based authentication"
-    
+
   logging:
     - "Enable comprehensive audit logging"
     - "Configure log retention policies"
@@ -775,13 +775,13 @@ esxi_hardening:
     - "Configure lockdown mode"
     - "Use certificate-based authentication"
     - "Limit administrative access"
-    
+
   network:
     - "Isolate management network"
     - "Configure VLANs for traffic separation"
     - "Enable network security policies"
     - "Disable unnecessary network services"
-    
+
   storage:
     - "Enable vSAN encryption"
     - "Configure secure storage protocols"

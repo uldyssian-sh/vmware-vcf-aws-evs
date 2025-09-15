@@ -65,21 +65,21 @@ graph TB
         vCenter[vCenter Server]
         ESXi[ESXi Hosts]
     end
-    
+
     subgraph "AWS Cloud"
         EVS[Elastic VMware Service]
         EC2[EC2 Instances]
         S3[S3 Storage]
         CW[CloudWatch]
     end
-    
+
     subgraph "Integration Toolkit"
         CLI[CLI Tool]
         Python[Python SDK]
         TF[Terraform Modules]
         Scripts[Migration Scripts]
     end
-    
+
     VCF --> CLI
     CLI --> EVS
     Python --> vCenter

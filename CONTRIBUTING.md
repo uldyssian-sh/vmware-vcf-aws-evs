@@ -48,15 +48,15 @@ def create_evs_cluster(
 ) -> Dict[str, Any]:
     """
     Create an EVS cluster with specified configuration.
-    
+
     Args:
         cluster_name: Name for the EVS cluster
         instance_type: EC2 instance type for cluster nodes
         cluster_size: Number of nodes in the cluster
-        
+
     Returns:
         Dictionary containing cluster creation response
-        
+
     Raises:
         EVSClusterError: If cluster creation fails
     """
@@ -133,10 +133,10 @@ def test_create_evs_cluster_success():
     # Arrange
     mock_client = Mock()
     mock_client.create_cluster.return_value = {"ClusterId": "cluster-123"}
-    
+
     # Act
     result = create_evs_cluster("test-cluster", "i3.metal", 3)
-    
+
     # Assert
     assert result["ClusterId"] == "cluster-123"
     mock_client.create_cluster.assert_called_once()

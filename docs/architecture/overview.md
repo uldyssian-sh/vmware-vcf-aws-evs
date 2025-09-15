@@ -21,7 +21,7 @@ graph TB
                 vCenter[vCenter Server]
                 NSX[NSX Manager]
             end
-            
+
             subgraph "AWS Services"
                 EBS[EBS Volumes]
                 S3[S3 Storage]
@@ -30,18 +30,18 @@ graph TB
             end
         end
     end
-    
+
     subgraph "On-Premises"
         VCF[VMware Cloud Foundation]
         OnPremVC[vCenter Server]
         OnPremNSX[NSX Manager]
     end
-    
+
     ESXi1 --> EBS
     ESXi2 --> EBS
     ESXi3 --> EBS
     vCenter --> CloudWatch
-    
+
     OnPremVC -.-> vCenter
     OnPremNSX -.-> NSX
 ```
@@ -78,19 +78,19 @@ graph LR
         VCF[VMware Cloud Foundation]
         DC_Network[Corporate Network]
     end
-    
+
     subgraph "AWS Cloud"
         subgraph "VPC"
             EVS[EVS Cluster]
             PrivateSubnet[Private Subnets]
             PublicSubnet[Public Subnets]
         end
-        
+
         DX[Direct Connect]
         VPN[Site-to-Site VPN]
         TGW[Transit Gateway]
     end
-    
+
     DC_Network --> DX
     DC_Network --> VPN
     DX --> TGW

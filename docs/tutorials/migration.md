@@ -50,7 +50,7 @@ Based on [AWS EVS documentation](https://docs.aws.amazon.com/pdfs/evs/latest/use
    ```bash
    # Verify network connectivity
    ping <evs-vcenter-ip>
-   
+
    # Test vMotion network
    vmkping -I vmk1 <target-vmk-ip>
    ```
@@ -60,7 +60,7 @@ Based on [AWS EVS documentation](https://docs.aws.amazon.com/pdfs/evs/latest/use
    # Using PowerCLI
    Connect-VIServer -Server <source-vcenter>
    Connect-VIServer -Server <evs-vcenter>
-   
+
    # Enable Enhanced Linked Mode (if required)
    New-VICredentialStoreItem -Host <evs-vcenter> -User cloudadmin@vmc.local -Password <password>
    ```
@@ -85,7 +85,7 @@ Suitable for non-critical workloads or when vMotion is not feasible.
    ```bash
    # Power off VM
    vcf-evs vm-power --name "VM-Name" --state off
-   
+
    # Create pre-migration snapshot
    vcf-evs snapshot --vm "VM-Name" --description "Pre-migration backup"
    ```
@@ -104,7 +104,7 @@ Suitable for non-critical workloads or when vMotion is not feasible.
    ```bash
    # Check migration status
    vcf-evs migration-status --job-id <migration-job-id>
-   
+
    # View detailed logs
    tail -f logs/migration.log
    ```
@@ -123,18 +123,18 @@ migration:
   source_vcenter: "vcenter.onprem.local"
   target_cluster: "production-evs"
   method: "cold"  # or "vmotion"
-  
+
   vms:
     - name: "web-server-01"
       priority: "high"
       target_datastore: "vsan-datastore"
       target_network: "VM Network"
-      
+
     - name: "app-server-01"
       priority: "medium"
       target_datastore: "vsan-datastore"
       target_network: "App Network"
-      
+
     - name: "db-server-01"
       priority: "high"
       target_datastore: "vsan-datastore"
@@ -172,13 +172,13 @@ network_mapping:
   source_networks:
     - name: "VM Network"
       target: "EVS-VM-Network"
-      
+
     - name: "App-Tier"
       target: "EVS-App-Network"
-      
+
     - name: "DB-Tier"
       target: "EVS-DB-Network"
-      
+
   port_groups:
     - source: "Web-DMZ"
       target: "EVS-Web-DMZ"
@@ -238,23 +238,23 @@ def validate_vm_migration(vm_name, cluster_name, config_path):
     """Validate VM migration success."""
     config = ConfigManager(config_path)
     evs_client = EVSClient(config.get_aws_config())
-    
+
     # Check VM exists in target cluster
     vm_info = evs_client.get_vm_info(vm_name, cluster_name)
     assert vm_info['power_state'] == 'poweredOn'
-    
+
     # Test network connectivity
-    result = subprocess.run(['ping', '-c', '3', vm_info['ip_address']], 
+    result = subprocess.run(['ping', '-c', '3', vm_info['ip_address']],
                           capture_output=True)
     assert result.returncode == 0
-    
+
     # Verify application ports
     for port in [80, 443, 22]:
         result = subprocess.run(['nc', '-z', vm_info['ip_address'], str(port)],
                               capture_output=True)
         if result.returncode == 0:
             print(f"Port {port} is accessible")
-    
+
     print(f"VM {vm_name} migration validation successful")
 
 if __name__ == "__main__":
@@ -367,12 +367,12 @@ phases:
     vms: ["dev-web-01", "dev-app-01", "dev-db-01"]
     method: "cold"
     timeline: "Week 1"
-    
+
   - name: "Phase 2 - Staging VMs"
     vms: ["stage-web-01", "stage-app-01", "stage-db-01"]
     method: "vmotion"
     timeline: "Week 2"
-    
+
   - name: "Phase 3 - Production VMs"
     vms: ["prod-web-01", "prod-app-01", "prod-db-01"]
     method: "vmotion"
@@ -390,7 +390,7 @@ rollback_plan:
     - "Migration time exceeds 6 hours"
     - "Application performance degrades > 20%"
     - "Data integrity issues detected"
-  
+
   procedures:
     - "Power off migrated VM"
     - "Revert to pre-migration snapshot"

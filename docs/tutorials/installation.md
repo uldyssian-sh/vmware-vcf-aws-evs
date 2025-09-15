@@ -97,7 +97,7 @@ vmware:
   vcenter_server: <your-vcenter-server>
   username: <username>
   # Note: Use environment variables for sensitive data
-  
+
 # EVS Configuration
 evs:
   default_cluster_name: production-cluster
