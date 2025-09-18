@@ -1,33 +1,22 @@
-# Include production requirements
--r requirements.txt
+# Development dependencies
+pytest>=7.4.0
+pytest-cov>=4.1.0
+black>=23.12.0
+flake8>=7.0.0
+mypy>=1.8.0
+bandit>=1.7.5
+safety>=2.3.0
+pre-commit>=3.6.0
 
-# Testing
-pytest>=6.2.0
-pytest-cov>=3.0.0
-pytest-mock>=3.6.0
-moto>=4.0.0
-
-# Code quality
-black>=22.0.0
-flake8>=4.0.0
-mypy>=0.991
-isort>=5.10.0
-bandit>=1.7.0
-
-# Pre-commit hooks
-pre-commit>=2.20.0
+# Testing utilities
+pytest-mock>=3.12.0
+pytest-asyncio>=0.21.0
+coverage>=7.3.0
 
 # Documentation
-mkdocs>=1.4.0
-mkdocs-material>=8.5.0
+mkdocs>=1.5.0
+mkdocs-material>=9.4.0
 
-# Development tools
-ipython>=7.16.0
-
-# Type stubs
-types-requests>=2.28.0
-types-PyYAML>=6.0.0
-
-# Linting
-pylint>=2.15.0
-autopep8>=1.7.0
+# Code quality
+isort>=5.12.0
+pylint>=3.0.0
