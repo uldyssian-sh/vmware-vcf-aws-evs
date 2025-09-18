@@ -22,7 +22,7 @@ class ConfigManager:
             raise FileNotFoundError(f"Configuration file not found: {self.config_path}")
         
         with open(config_file, 'r', encoding='utf-8') as f:
-            config = yaml.safe_load(f)
+            config = yaml.safe_load(f) or {}
         
         # Override with environment variables
         config = self._apply_env_overrides(config)
@@ -32,25 +32,31 @@ class ConfigManager:
     def _apply_env_overrides(self, config: Dict[str, Any]) -> Dict[str, Any]:
         """Apply environment variable overrides."""
         # AWS configuration
-        if os.getenv('AWS_REGION'):
-            config.setdefault('aws', {})['region'] = os.getenv('AWS_REGION')
+        aws_region = os.getenv('AWS_REGION')
+        if aws_region:
+            config.setdefault('aws', {})['region'] = aws_region
         
-        if os.getenv('AWS_PROFILE'):
-            config.setdefault('aws', {})['profile'] = os.getenv('AWS_PROFILE')
+        aws_profile = os.getenv('AWS_PROFILE')
+        if aws_profile:
+            config.setdefault('aws', {})['profile'] = aws_profile
         
         # VMware configuration
-        if os.getenv('VCENTER_SERVER'):
-            config.setdefault('vmware', {})['vcenter_server'] = os.getenv('VCENTER_SERVER')
+        vcenter_server = os.getenv('VCENTER_SERVER')
+        if vcenter_server:
+            config.setdefault('vmware', {})['vcenter_server'] = vcenter_server
         
-        if os.getenv('VCENTER_USERNAME'):
-            config.setdefault('vmware', {})['username'] = os.getenv('VCENTER_USERNAME')
+        vcenter_username = os.getenv('VCENTER_USERNAME')
+        if vcenter_username:
+            config.setdefault('vmware', {})['username'] = vcenter_username
         
-        if os.getenv('VCENTER_PASSWORD'):
-            config.setdefault('vmware', {})['password'] = os.getenv('VCENTER_PASSWORD')
+        vcenter_password = os.getenv('VCENTER_PASSWORD')
+        if vcenter_password:
+            config.setdefault('vmware', {})['password'] = vcenter_password
         
         # EVS configuration
-        if os.getenv('EVS_CLUSTER_NAME'):
-            config.setdefault('evs', {})['default_cluster_name'] = os.getenv('EVS_CLUSTER_NAME')
+        evs_cluster_name = os.getenv('EVS_CLUSTER_NAME')
+        if evs_cluster_name:
+            config.setdefault('evs', {})['default_cluster_name'] = evs_cluster_name
         
         return config
     

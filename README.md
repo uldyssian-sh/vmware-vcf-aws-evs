@@ -67,11 +67,77 @@ python main.py
 
 ## 📚 Documentation
 
-- [Installation Guide](docs/installation.md)
-- [Configuration Reference](docs/configuration.md)
-- [API Documentation](docs/api.md)
-- [Troubleshooting](docs/troubleshooting.md)
+- [Installation Guide](docs/tutorials/installation.md)
+- [Quick Start Guide](docs/tutorials/quickstart.md)
+- [Migration Guide](docs/tutorials/migration.md)
+- [Architecture Overview](docs/architecture/overview.md)
+- [Security Guide](docs/architecture/security.md)
+- [Examples](examples/)
 - [Security Policy](SECURITY.md)
+
+## 🔧 Configuration
+
+Configuration can be done through:
+
+1. **Environment Variables**
+2. **Configuration Files**
+3. **Command Line Arguments**
+
+Example configuration:
+
+```yaml
+# config.yml
+app:
+  name: vmware-vcf-aws-evs
+  version: "1.0.0"
+  debug: false
+
+logging:
+  level: INFO
+  format: json
+```
+
+## 📊 Usage Examples
+
+### Basic Usage
+
+```python
+from vmware_vcf_aws_evs import main
+
+# Initialize application
+app = main.Application()
+
+# Run application
+app.run()
+```
+
+### Advanced Configuration
+
+```python
+# Advanced usage with custom configuration
+config = {
+    'debug': True,
+    'log_level': 'DEBUG'
+}
+
+app = main.Application(config=config)
+app.run()
+```
+
+## 🧪 Testing
+
+Run the test suite:
+
+```bash
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=vmware-vcf-aws-evs
+
+# Run specific test file
+pytest tests/test_main.py
+```
 
 ## 🤝 Contributing
 

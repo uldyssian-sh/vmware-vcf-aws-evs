@@ -61,7 +61,7 @@ resource "aws_security_group" "evs_cluster" {
 
 resource "aws_kms_key" "evs_logs" {
   description             = "KMS key for EVS cluster logs encryption"
-  deletion_window_in_days = 7
+  deletion_window_in_days = 30
   
   tags = merge(local.common_tags, {
     Name = "${var.cluster_name}-logs-key"

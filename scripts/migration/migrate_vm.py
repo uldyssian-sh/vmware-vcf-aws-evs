@@ -5,12 +5,22 @@ import argparse
 import logging
 import sys
 from typing import Dict, Any
+from botocore.exceptions import ClientError
+from pyVmomi import vim
 
 from vcf_evs.aws import EVSClient
 from vcf_evs.vmware import VCenterClient
 from vcf_evs.utils import ConfigManager
 
-logging.basicConfig(level=logging.INFO)
+# Configure logging with proper format and handlers
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(sys.stdout),
+        logging.FileHandler('logs/migration.log', mode='a')
+    ]
+)
 logger = logging.getLogger(__name__)
 
 
@@ -70,12 +80,26 @@ class VMigrator:
                 "migrated_vm_id": migrated_vm['vm_id']
             }
             
-        except Exception as e:
-            logger.error(f"Migration failed: {e}")
+        except ClientError as e:
+            logger.error(f"AWS error during migration: {e}")
             return {
                 "status": "failed",
                 "vm_name": vm_name,
-                "error": str(e)
+                "error": f"AWS error: {e}"
+            }
+        except vim.fault.VimFault as e:
+            logger.error(f"VMware error during migration: {e}")
+            return {
+                "status": "failed",
+                "vm_name": vm_name,
+                "error": f"VMware error: {e}"
+            }
+        except Exception as e:
+            logger.error(f"Unexpected error during migration: {e}")
+            return {
+                "status": "failed",
+                "vm_name": vm_name,
+                "error": f"Unexpected error: {e}"
             }
     
     def rollback_migration(self, vm_name: str, snapshot_id: str) -> bool:
@@ -95,11 +119,15 @@ def main():
     """Main migration script."""
     parser = argparse.ArgumentParser(description="Migrate VM from VCF to EVS")
     parser.add_argument("--vm-name", required=True, help="Name of VM to migrate")
-    parser.add_argument("--target-cluster", required=True, help="Target EVS cluster")
+    parser.add_argument("--target-cluster", help="Target EVS cluster")
     parser.add_argument("--config", default="config/config.yaml", help="Config file")
     parser.add_argument("--rollback", help="Rollback using snapshot ID")
     
     args = parser.parse_args()
+    
+    # Validate arguments
+    if not args.rollback and not args.target_cluster:
+        parser.error("--target-cluster is required when not performing rollback")
     
     try:
         migrator = VMigrator(args.config)

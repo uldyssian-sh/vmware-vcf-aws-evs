@@ -55,7 +55,15 @@ variable "subnet_ids" {
 variable "allowed_cidr_blocks" {
   description = "CIDR blocks allowed to access the cluster"
   type        = list(string)
-  default     = ["10.0.0.0/8"]
+  default     = ["10.0.0.0/16"]
+  
+  validation {
+    condition = alltrue([
+      for cidr in var.allowed_cidr_blocks :
+      can(cidrhost(cidr, 0))
+    ])
+    error_message = "All CIDR blocks must be valid IPv4 CIDR notation."
+  }
 }
 
 variable "environment" {

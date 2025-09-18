@@ -68,7 +68,9 @@ def _safe_log_path(log_file: str) -> str:
     resolved_path = full_path.resolve()
     
     # Security check: ensure resolved path is within logs directory
-    if not str(resolved_path).startswith(str(logs_dir.resolve())):
+    try:
+        resolved_path.relative_to(logs_dir.resolve())
+    except ValueError:
         raise ValueError("Invalid log file path")
     
     return str(resolved_path)

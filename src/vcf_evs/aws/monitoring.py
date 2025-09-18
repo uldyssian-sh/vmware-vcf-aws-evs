@@ -1,6 +1,7 @@
 """CloudWatch monitoring for EVS clusters."""
 
 import boto3
+from datetime import datetime, timedelta
 from typing import Dict, List, Any
 import logging
 
@@ -31,8 +32,8 @@ class CloudWatchMonitor:
                         'Value': cluster_name
                     },
                 ],
-                StartTime='2024-01-01T00:00:00Z',
-                EndTime='2024-01-02T00:00:00Z',
+                StartTime=datetime.utcnow() - timedelta(hours=1),
+                EndTime=datetime.utcnow(),
                 Period=300,
                 Statistics=['Average']
             )

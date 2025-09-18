@@ -1,6 +1,7 @@
 """AWS EVS Client for cluster management."""
 
 import boto3
+from botocore.exceptions import ClientError, NoCredentialsError, BotoCoreError
 from typing import Dict, List, Any, Optional
 import logging
 
@@ -24,21 +25,20 @@ class EVSClient:
         """List all EVS clusters."""
         try:
             response = self.evs_client.describe_clusters()
-            clusters = []
             
-            for cluster in response.get("Clusters", []):
-                clusters.append({
-                    "name": cluster["ClusterName"],
-                    "status": cluster["ClusterStatus"],
-                    "node_count": cluster["NodeCount"],
-                    "region": self.region,
-                    "cluster_id": cluster["ClusterId"]
-                })
+            return [{
+                "name": cluster["ClusterName"],
+                "status": cluster["ClusterStatus"],
+                "node_count": cluster["NodeCount"],
+                "region": self.region,
+                "cluster_id": cluster["ClusterId"]
+            } for cluster in response.get("Clusters", [])]
             
-            return clusters
-            
+        except (ClientError, NoCredentialsError, BotoCoreError) as e:
+            logger.error(f"AWS error listing clusters: {e}")
+            raise
         except Exception as e:
-            logger.error(f"Failed to list clusters: {e}")
+            logger.error(f"Unexpected error listing clusters: {e}")
             raise
     
     def create_cluster(
@@ -46,7 +46,8 @@ class EVSClient:
         name: str, 
         instance_type: str = "i3.metal", 
         size: int = 3,
-        subnet_ids: Optional[List[str]] = None
+        subnet_ids: Optional[List[str]] = None,
+        environment: str = "development"
     ) -> Dict[str, Any]:
         """Create new EVS cluster."""
         try:
@@ -59,7 +60,7 @@ class EVSClient:
                 NodeCount=size,
                 SubnetIds=subnet_ids,
                 Tags=[
-                    {"Key": "Environment", "Value": "production"},
+                    {"Key": "Environment", "Value": environment},
                     {"Key": "ManagedBy", "Value": "vcf-evs-toolkit"}
                 ]
             )
@@ -112,7 +113,9 @@ class EVSClient:
                 ]
             )
             
-            return [subnet["SubnetId"] for subnet in response["Subnets"][:2]]
+            subnets = [subnet["SubnetId"] for subnet in response["Subnets"]]
+            # Return at least 2 subnets for multi-AZ deployment, but allow more if available
+            return subnets[:min(len(subnets), 3)]
             
         except Exception as e:
             logger.error(f"Failed to get default subnets: {e}")

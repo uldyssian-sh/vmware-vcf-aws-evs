@@ -3,6 +3,8 @@
 from pyVmomi import vim
 from pyVim.connect import SmartConnect, Disconnect
 import ssl
+import html
+import time
 from typing import Dict, List, Any, Optional
 import logging
 
@@ -14,9 +16,16 @@ class VCenterClient:
     
     def __init__(self, config: Dict[str, Any]):
         """Initialize vCenter client with configuration."""
+        if not config:
+            raise ValueError("Configuration is required")
+        
         self.server = config.get("vcenter_server")
         self.username = config.get("username")
         self.password = config.get("password")
+        
+        if not all([self.server, self.username, self.password]):
+            raise ValueError("vcenter_server, username, and password are required")
+        
         self.port = config.get("port", 443)
         self.ssl_verify = config.get("ssl_verify", True)
         
@@ -51,6 +60,8 @@ class VCenterClient:
         """Disconnect from vCenter server."""
         if self.service_instance:
             Disconnect(self.service_instance)
+            self.service_instance = None
+            self.content = None
             logger.info("Disconnected from vCenter")
     
     def get_vm_info(self, vm_name: str) -> Dict[str, Any]:
@@ -76,6 +87,7 @@ class VCenterClient:
     
     def list_vms(self) -> List[Dict[str, Any]]:
         """List all VMs in vCenter."""
+        container_view = None
         try:
             container = self.content.rootFolder
             view_type = [vim.VirtualMachine]
@@ -94,12 +106,14 @@ class VCenterClient:
                     "vm_id": vm._moId
                 })
             
-            container_view.Destroy()
             return vms
             
         except Exception as e:
             logger.error(f"Failed to list VMs: {e}")
             raise
+        finally:
+            if container_view:
+                container_view.Destroy()
     
     def create_snapshot(self, vm_name: str, description: str) -> str:
         """Create VM snapshot."""
@@ -169,21 +183,24 @@ class VCenterClient:
     
     def _find_vm_by_name(self, vm_name: str) -> Optional[vim.VirtualMachine]:
         """Find VM by name."""
-        container = self.content.rootFolder
-        view_type = [vim.VirtualMachine]
-        recursive = True
-        
-        container_view = self.content.viewManager.CreateContainerView(
-            container, view_type, recursive
-        )
-        
-        for vm in container_view.view:
-            if vm.name == vm_name:
+        container_view = None
+        try:
+            container = self.content.rootFolder
+            view_type = [vim.VirtualMachine]
+            recursive = True
+            
+            container_view = self.content.viewManager.CreateContainerView(
+                container, view_type, recursive
+            )
+            
+            for vm in container_view.view:
+                if vm.name == vm_name:
+                    return vm
+            
+            return None
+        finally:
+            if container_view:
                 container_view.Destroy()
-                return vm
-        
-        container_view.Destroy()
-        return None
     
     def _find_snapshot_by_id(self, vm: vim.VirtualMachine, snapshot_id: str) -> Optional[vim.vm.Snapshot]:
         """Find snapshot by ID."""
@@ -205,10 +222,11 @@ class VCenterClient:
     def _wait_for_task(self, task):
         """Wait for vCenter task to complete."""
         while task.info.state in [vim.TaskInfo.State.running, vim.TaskInfo.State.queued]:
-            continue
+            time.sleep(0.1)  # Prevent busy-wait loop
         
         if task.info.state == vim.TaskInfo.State.error:
-            raise Exception(f"Task failed: {task.info.error.msg}")
+            error_msg = html.escape(str(task.info.error.msg)) if task.info.error else "Unknown error"
+            raise RuntimeError(f"Task failed: {error_msg}")
     
     def __enter__(self):
         """Context manager entry."""
