@@ -1,5 +1,5 @@
 # Multi-stage build for production-ready container
-FROM python:3.11-slim as builder
+FROM python:3.13-slim as builder
 
 # Set build arguments
 ARG BUILD_DATE
@@ -33,7 +33,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # Production stage
-FROM python:3.11-slim as production
+FROM python:3.13-slim as production
 
 # Create non-root user
 RUN groupadd -r vcfevs && useradd -r -g vcfevs -s /bin/bash vcfevs
