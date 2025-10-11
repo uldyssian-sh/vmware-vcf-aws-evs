@@ -17,8 +17,8 @@ except FileNotFoundError:
 setup(
     name="vmware-vcf-aws-evs",
     version="1.0.0",
-    author="VCF EVS Integration Team",
-    author_email="contact@example.com",
+    author="VMware VCF EVS Team",
+    author_email="25517637+uldyssian-sh@users.noreply.github.com",
     description="VMware Cloud Foundation AWS EVS Integration Toolkit",
     long_description=long_description,
     long_description_content_type="text/markdown",

@@ -43,17 +43,21 @@ def setup_logging(level: str = "INFO", log_file: Optional[str] = None) -> loggin
 def _safe_log_path(log_file: str) -> str:
     """Sanitize log file path to prevent path traversal and command injection."""
     if not log_file or not isinstance(log_file, str):
-        log_file = 'default.log'
+        return str(Path('logs') / 'default.log')
     
     # Remove any shell metacharacters and path traversal attempts
     safe_name = os.path.basename(log_file)
-    # Allow alphanumeric, dots, hyphens, underscores, and spaces
-    safe_name = ''.join(c for c in safe_name if c.isalnum() or c in '.-_ ')
-    safe_name = safe_name.strip()
+    # Allow only alphanumeric, dots, hyphens, and underscores
+    safe_name = ''.join(c for c in safe_name if c.isalnum() or c in '.-_')
+    safe_name = safe_name.strip('.')
     
-    # Prevent empty names
-    if not safe_name:
+    # Prevent empty names and ensure valid filename
+    if not safe_name or len(safe_name) < 1:
         safe_name = 'default'
+    
+    # Limit filename length
+    if len(safe_name) > 100:
+        safe_name = safe_name[:100]
     
     # Ensure .log extension
     if not safe_name.endswith('.log'):
@@ -61,16 +65,13 @@ def _safe_log_path(log_file: str) -> str:
     
     # Create logs directory if it doesn't exist
     logs_dir = Path('logs')
-    logs_dir.mkdir(exist_ok=True)
+    logs_dir.mkdir(mode=0o755, exist_ok=True)
     
-    # Resolve path and ensure it's within logs directory
-    full_path = logs_dir / safe_name
-    resolved_path = full_path.resolve()
+    # Create safe path within logs directory
+    safe_path = logs_dir / safe_name
     
-    # Security check: ensure resolved path is within logs directory
-    try:
-        resolved_path.relative_to(logs_dir.resolve())
-    except ValueError:
-        raise ValueError("Invalid log file path")
+    # Additional security validation
+    if '..' in str(safe_path) or str(safe_path).startswith('/'):
+        raise ValueError("Invalid log file path detected")
     
-    return str(resolved_path)
+    return str(safe_path)

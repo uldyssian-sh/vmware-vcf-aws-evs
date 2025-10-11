@@ -173,14 +173,115 @@ config/local.yaml
 # Backup files
 *.bak
 *.backup
+*.orig
+
+# Security - Never commit sensitive data
+*.secret
+*.private
+*_secret*
+*_private*
+*_key*
+*_token*
+*_password*
+aws_credentials
+.aws_credentials
+credentials.json
+secrets.json
+
+# VMware specific
+*.vmx
+*.vmdk
+*.nvram
+*.vmss
+*.vmsn
+
+# Docker
+.dockerignore
+Dockerfile.local
+docker-compose.override.yml
+
+# Local development
+.local/
+local/
+dev/
+.dev/
+
 # Performance optimization
-*.log
-*.tmp
 *.cache
-.DS_Store
-Thumbs.db
+.cache/
+*.tmp
+.tmp/
+*.temp
+.temp/
+
+# Node.js (if using npm for tooling)
+node_modules/
+package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python virtual environments
+venv*/
+.venv*/
+env*/
+.env*/
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json.example
+!.vscode/launch.json.example
+
+# Vim
 *.swp
 *.swo
-node_modules/
-.vscode/settings.json
-.idea/
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*

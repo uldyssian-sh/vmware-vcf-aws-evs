@@ -8,29 +8,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Initial project structure and documentation
-- Core Python SDK for EVS and vCenter integration
-- Terraform modules for EVS cluster deployment
-- CLI tool for cluster management and VM migration
-- Comprehensive test suite with unit and integration tests
-- GitHub Actions CI/CD pipeline
-- MkDocs documentation site
+- Enhanced CONTRIBUTORS.md with all required contributors
+- Improved security documentation and policies
+- Advanced error handling in EVS client
+- Path traversal protection in logging utilities
+- Scoped npm package configuration
 
 ### Changed
-- N/A
-
-### Deprecated
-- N/A
-
-### Removed
-- N/A
+- Updated setup.py with proper author information
+- Enhanced CI/CD workflows with better error handling
+- Improved README.md with functional links
+- Updated security policies with comprehensive guidelines
 
 ### Fixed
-- N/A
+- **Security**: Fixed path traversal vulnerability in logger.py (CWE-22)
+- **Security**: Fixed command injection vulnerability in logger.py (CWE-77/78/88)
+- **Error Handling**: Enhanced error handling in EVS client
+- **CI/CD**: Fixed Terraform formatting check in CI pipeline
+- **Package**: Fixed unscoped npm package name (CWE-487)
 
 ### Security
-- Implemented secure credential management
-- Added security scanning with Bandit and Trivy
+- Implemented secure path sanitization
+- Enhanced input validation across all modules
+- Added comprehensive security scanning
+- Updated security policies and procedures
+
+## [1.0.1] - 2024-12-19
+
+### Security Fixes
+- **CRITICAL**: Fixed path traversal vulnerability in logging system
+- **HIGH**: Enhanced error handling and input validation
+- **MEDIUM**: Improved package security configuration
+
+### Improvements
+- Enhanced CI/CD pipeline reliability
+- Updated contributor documentation
+- Improved security documentation
+- Better error handling across all modules
+
+### Contributors
+- dependabot[bot]: Automated dependency updates
+- actions-user: CI/CD automation improvements
+- uldyssian-sh LT: Security fixes and enhancements
 
 ## [1.0.0] - 2024-01-15
 

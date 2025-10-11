@@ -1,5 +1,6 @@
 {
-  "name": "vmware-vcf-aws-evs",
+  "name": "@uldyssian-sh/vmware-vcf-aws-evs",
+  "private": true,
   "version": "1.0.0",
   "description": "Enterprise automation and management solution",
   "main": "index.js",

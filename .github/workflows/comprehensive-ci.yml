@@ -68,7 +68,12 @@ jobs:
         terraform_version: 1.6.0
     
     - name: Terraform Format Check
-      run: terraform fmt -check -recursive terraform/ || true
+      run: |
+        if ! terraform fmt -check -recursive terraform/; then
+          echo "Terraform formatting issues found"
+          terraform fmt -recursive terraform/
+          exit 1
+        fi
     
     - name: Terraform Validate Modules
       run: |

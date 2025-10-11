@@ -13,13 +13,28 @@ class EVSClient:
     
     def __init__(self, config: Dict[str, Any]):
         """Initialize EVS client with configuration."""
-        self.region = config.get("region", "us-west-2")
-        self.session = boto3.Session(
-            region_name=self.region,
-            profile_name=config.get("profile")
-        )
-        self.evs_client = self.session.client("evs")
-        self.ec2_client = self.session.client("ec2")
+        try:
+            self.region = config.get("region", "us-west-2")
+            
+            # Validate region format
+            if not self.region or not isinstance(self.region, str):
+                raise ValueError("Invalid AWS region specified")
+            
+            self.session = boto3.Session(
+                region_name=self.region,
+                profile_name=config.get("profile")
+            )
+            self.evs_client = self.session.client("evs")
+            self.ec2_client = self.session.client("ec2")
+            
+            logger.info(f"EVS client initialized for region: {self.region}")
+            
+        except (ClientError, NoCredentialsError, BotoCoreError) as e:
+            logger.error(f"AWS configuration error: {e}")
+            raise
+        except Exception as e:
+            logger.error(f"Failed to initialize EVS client: {e}")
+            raise
     
     def list_clusters(self) -> List[Dict[str, Any]]:
         """List all EVS clusters."""
@@ -70,8 +85,14 @@ class EVSClient:
                 "status": response["ClusterStatus"]
             }
             
+        except (ClientError, NoCredentialsError, BotoCoreError) as e:
+            logger.error(f"AWS error creating cluster {name}: {e}")
+            raise
+        except ValueError as e:
+            logger.error(f"Invalid parameters for cluster {name}: {e}")
+            raise
         except Exception as e:
-            logger.error(f"Failed to create cluster {name}: {e}")
+            logger.error(f"Unexpected error creating cluster {name}: {e}")
             raise
     
     def delete_cluster(self, cluster_id: str) -> bool:
@@ -80,8 +101,11 @@ class EVSClient:
             self.evs_client.delete_cluster(ClusterId=cluster_id)
             return True
             
+        except (ClientError, NoCredentialsError, BotoCoreError) as e:
+            logger.error(f"AWS error deleting cluster {cluster_id}: {e}")
+            raise
         except Exception as e:
-            logger.error(f"Failed to delete cluster {cluster_id}: {e}")
+            logger.error(f"Unexpected error deleting cluster {cluster_id}: {e}")
             raise
     
     def get_cluster_status(self, cluster_id: str) -> Dict[str, Any]:

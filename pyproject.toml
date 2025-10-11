@@ -9,7 +9,7 @@ description = "VMware Cloud Foundation AWS EVS Integration Toolkit"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "VCF EVS Integration Team", email = "contact@example.com"}
+    {name = "VMware VCF EVS Team", email = "25517637+uldyssian-sh@users.noreply.github.com"}
 ]
 classifiers = [
     "Development Status :: 4 - Beta",

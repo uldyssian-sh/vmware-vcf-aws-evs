@@ -7,13 +7,15 @@ ARG VCS_REF
 ARG VERSION
 
 # Add metadata
-LABEL maintainer="VCF EVS Integration Team" \
+LABEL maintainer="25517637+uldyssian-sh@users.noreply.github.com" \
       org.opencontainers.image.title="VMware VCF AWS EVS Integration" \
       org.opencontainers.image.description="VMware Cloud Foundation AWS EVS Integration Toolkit" \
-      org.opencontainers.image.version="${VERSION}" \
+      org.opencontainers.image.version="${VERSION:-1.0.1}" \
       org.opencontainers.image.created="${BUILD_DATE}" \
       org.opencontainers.image.revision="${VCS_REF}" \
-      org.opencontainers.image.source="https://github.com/uldyssian-sh/vmware-vcf-aws-evs"
+      org.opencontainers.image.source="https://github.com/uldyssian-sh/vmware-vcf-aws-evs" \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.vendor="uldyssian-sh"
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \

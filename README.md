@@ -77,8 +77,10 @@ python scripts/migration/migrate_vm.py
 - [Migration Guide](docs/tutorials/migration.md)
 - [Architecture Overview](docs/architecture/overview.md)
 - [Security Guide](docs/architecture/security.md)
-- [Examples](examples/)
+- [Examples](examples/README.md)
 - [Security Policy](SECURITY.md)
+- [Contributing Guidelines](CONTRIBUTING.md)
+- [Contributors](CONTRIBUTORS.md)
 
 ## 🔧 Configuration
 
@@ -148,7 +150,17 @@ pytest tests/test_main.py
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for detailed information.
+
+### Contributors
+See [CONTRIBUTORS.md](CONTRIBUTORS.md) for a list of all contributors.
+
+### Quick Contribution Guide
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
 ## 📄 License
 
