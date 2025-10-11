@@ -1,4 +1,4 @@
-# vmware vcf aws evs
+# VMware VCF AWS EVS
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub issues](https://img.shields.io/github/issues/uldyssian-sh/vmware-vcf-aws-evs)](https://github.com/uldyssian-sh/vmware-vcf-aws-evs/issues)
@@ -7,7 +7,7 @@
 
 ## 🎯 Overview
 
-Professional vmware vcf aws evs solution with enterprise-grade automation and security features.
+Professional VMware Cloud Foundation AWS External Virtual Storage solution with enterprise-grade automation and security features.
 
 ## 📊 Repository Stats
 
@@ -34,9 +34,11 @@ Professional vmware vcf aws evs solution with enterprise-grade automation and se
 git clone https://github.com/uldyssian-sh/vmware-vcf-aws-evs.git
 cd vmware-vcf-aws-evs
 
-# Setup environment
-chmod +x setup.sh
-./setup.sh
+# Install dependencies
+pip install -r requirements.txt
+
+# Run migration script
+python scripts/migration/migrate_vm.py --help
 ```
 
 
@@ -54,14 +56,17 @@ terraform apply
 ```
 
 
-## 🐍 Python Scripts
+## 🐍 Python Usage
 
 ```bash
 # Install dependencies
 pip install -r requirements.txt
 
-# Run main script
-python main.py
+# Use CLI tool
+python -m src.vcf_evs.cli --help
+
+# Run migration
+python scripts/migration/migrate_vm.py
 ```
 
 
@@ -102,26 +107,28 @@ logging:
 ### Basic Usage
 
 ```python
-from vmware_vcf_aws_evs import main
+from src.vcf_evs import cli
 
-# Initialize application
-app = main.Application()
+# Initialize EVS client
+client = cli.EVSClient()
 
-# Run application
-app.run()
+# List available resources
+client.list_resources()
 ```
 
 ### Advanced Configuration
 
 ```python
 # Advanced usage with custom configuration
-config = {
-    'debug': True,
-    'log_level': 'DEBUG'
-}
+from src.vcf_evs.aws import AwsClient
+from src.vcf_evs.vmware import VmwareClient
 
-app = main.Application(config=config)
-app.run()
+# Configure clients
+aws_client = AwsClient(region='us-west-2')
+vmware_client = VmwareClient()
+
+# Perform migration
+vmware_client.migrate_to_aws(aws_client)
 ```
 
 ## 🧪 Testing
@@ -149,8 +156,9 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 
 ## 🆘 Support
 
-- 🐛 **Issues**: [GitHub Issues](https://github.com/uldyssian-sh/REPO_NAME/issues)
-- 📖 **Documentation**: [Wiki](https://github.com/uldyssian-sh/REPO_NAME/wiki)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/uldyssian-sh/vmware-vcf-aws-evs/issues)
+- 📖 **Documentation**: [Project Docs](docs/)
+- 🔒 **Security**: [Security Policy](SECURITY.md)
 
 ---
 
