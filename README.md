@@ -175,3 +175,13 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 ---
 
 ⭐ **Star this repository if you find it helpful!**
+
+## Support
+
+- **Issues**: [GitHub Issues](https://github.com/uldyssian-sh/vmware-vcf-aws-evs/issues)
+- **Security**: [Security Policy](SECURITY.md)
+- **Contributing**: [Contributing Guidelines](CONTRIBUTING.md)
+
+---
+
+**⭐ Star this repository if you find it helpful!**
