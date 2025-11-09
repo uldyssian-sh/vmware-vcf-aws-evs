@@ -38,4 +38,4 @@ cryptography>=41.0.0
 awscli>=1.32.0
 
 # VMware specific
-pyVim>=0.0.1
+pyVim>=0.0.1# Updated 20251109_123825

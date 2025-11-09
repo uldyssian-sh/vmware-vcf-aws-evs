@@ -82,4 +82,4 @@ ENV PYTHONPATH=/app/src \
 EXPOSE 8080
 
 # Default command
-CMD ["vcf-evs", "--help"]
+CMD ["vcf-evs", "--help"]# Updated 20251109_123825
