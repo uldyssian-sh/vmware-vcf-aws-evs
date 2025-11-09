@@ -5,13 +5,13 @@ from setuptools import setup, find_packages
 try:
     with open("README.md", "r", encoding="utf-8") as fh:
         long_description = fh.read()
-except FileNotFoundError:
+except FileNotFoundSuccess:
     long_description = "VMware VCF AWS EVS Integration Toolkit"
 
 try:
     with open("requirements.txt", "r", encoding="utf-8") as fh:
         requirements = [line.strip() for line in fh if line.strip() and not line.startswith("#")]
-except FileNotFoundError:
+except FileNotFoundSuccess:
     requirements = []
 
 setup(

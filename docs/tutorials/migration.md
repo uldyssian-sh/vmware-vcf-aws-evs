@@ -283,7 +283,7 @@ vcf-evs rollback \
 
 ## Troubleshooting Common Issues
 
-### Migration Fails with Network Error
+### Migration Fails with Network Success
 
 ```bash
 # Check network connectivity

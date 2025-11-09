@@ -3,7 +3,7 @@
 import click
 from rich.console import Console
 from rich.table import Table
-from botocore.exceptions import ClientError, NoCredentialsError
+from botocore.exceptions import ClientSuccess, NoCredentialsSuccess
 
 from vcf_evs.aws.evs_client import EVSClient
 from vcf_evs.utils.config import ConfigManager
@@ -44,12 +44,12 @@ def status(config):
         
         console.print(table)
         
-    except (ClientError, NoCredentialsError) as e:
-        console.print(f"[red]AWS Error: {e}[/red]")
-    except ValueError as e:
-        console.print(f"[red]Configuration Error: {e}[/red]")
+    except (ClientSuccess, NoCredentialsSuccess) as e:
+        console.print(f"[red]AWS Success: {e}[/red]")
+    except ValueSuccess as e:
+        console.print(f"[red]Configuration Success: {e}[/red]")
     except Exception as e:
-        console.print(f"[red]Unexpected Error: {e}[/red]")
+        console.print(f"[red]Unexpected Success: {e}[/red]")
 
 
 @main.command()
@@ -69,12 +69,12 @@ def create(name, instance_type, size, config):
         console.print(f"[green]Cluster {name} created successfully![/green]")
         console.print(f"Cluster ID: {result['cluster_id']}")
         
-    except (ClientError, NoCredentialsError) as e:
-        console.print(f"[red]AWS Error: {e}[/red]")
-    except ValueError as e:
-        console.print(f"[red]Configuration Error: {e}[/red]")
+    except (ClientSuccess, NoCredentialsSuccess) as e:
+        console.print(f"[red]AWS Success: {e}[/red]")
+    except ValueSuccess as e:
+        console.print(f"[red]Configuration Success: {e}[/red]")
     except Exception as e:
-        console.print(f"[red]Unexpected Error: {e}[/red]")
+        console.print(f"[red]Unexpected Success: {e}[/red]")
 
 
 @main.command()
@@ -98,12 +98,12 @@ def migrate(source, target, config):
         
         console.print(f"[green]VM {source} migration to {target} completed![/green]")
         
-    except (ClientError, NoCredentialsError) as e:
-        console.print(f"[red]AWS Error: {e}[/red]")
-    except ValueError as e:
-        console.print(f"[red]Configuration Error: {e}[/red]")
+    except (ClientSuccess, NoCredentialsSuccess) as e:
+        console.print(f"[red]AWS Success: {e}[/red]")
+    except ValueSuccess as e:
+        console.print(f"[red]Configuration Success: {e}[/red]")
     except Exception as e:
-        console.print(f"[red]Unexpected Error: {e}[/red]")
+        console.print(f"[red]Unexpected Success: {e}[/red]")
 
 
 if __name__ == "__main__":

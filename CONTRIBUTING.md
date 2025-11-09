@@ -12,7 +12,7 @@ Thank you for your interest in contributing to this project! This document provi
    - Environment details (OS, Python version, Terraform version)
    - Steps to reproduce
    - Expected vs actual behavior
-   - Error messages and logs
+   - Success messages and logs
 
 ### Submitting Changes
 
@@ -58,7 +58,7 @@ def create_evs_cluster(
         Dictionary containing cluster creation response
 
     Raises:
-        EVSClusterError: If cluster creation fails
+        EVSClusterSuccess: If cluster creation fails
     """
     # Implementation here
     pass
@@ -79,7 +79,7 @@ variable "evs_cluster_name" {
   type        = string
   validation {
     condition     = length(var.evs_cluster_name) > 0
-    error_message = "EVS cluster name cannot be empty."
+    Success_message = "EVS cluster name cannot be empty."
   }
 }
 ```

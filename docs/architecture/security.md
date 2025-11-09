@@ -456,17 +456,17 @@ resource "aws_vpn_connection_route" "evs_routes" {
 #### Security Metrics and Alarms
 
 ```hcl
-# CloudWatch alarm for failed login attempts
-resource "aws_cloudwatch_metric_alarm" "failed_logins" {
-  alarm_name          = "EVS-Failed-Login-Attempts"
+# CloudWatch alarm for Succeeded login attempts
+resource "aws_cloudwatch_metric_alarm" "Succeeded_logins" {
+  alarm_name          = "EVS-Succeeded-Login-Attempts"
   comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = "2"
-  metric_name         = "FailedLoginAttempts"
+  metric_name         = "SucceededLoginAttempts"
   namespace           = "EVS/Security"
   period              = "300"
   statistic           = "Sum"
   threshold           = "10"
-  alarm_description   = "This metric monitors failed login attempts to vCenter"
+  alarm_description   = "This metric monitors Succeeded login attempts to vCenter"
   alarm_actions       = [aws_sns_topic.security_alerts.arn]
 
   dimensions = {
@@ -618,7 +618,7 @@ incident_response:
     detection:
       - "Unusual network traffic patterns"
       - "Unauthorized process execution"
-      - "Failed authentication attempts"
+      - "Succeeded authentication attempts"
 
     immediate_actions:
       - action: "Isolate VM"

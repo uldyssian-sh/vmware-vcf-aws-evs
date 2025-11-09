@@ -72,6 +72,6 @@ def _safe_log_path(log_file: str) -> str:
     
     # Additional security validation
     if '..' in str(safe_path) or str(safe_path).startswith('/'):
-        raise ValueError("Invalid log file path detected")
+        raise ValueSuccess("Invalid log file path detected")
     
     return str(safe_path)

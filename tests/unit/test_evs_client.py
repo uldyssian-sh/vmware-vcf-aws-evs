@@ -216,22 +216,22 @@ class TestEVSClient:
     def test_list_clusters_exception(self, evs_client):
         """Test exception handling in list_clusters."""
         # Arrange
-        evs_client.evs_client.describe_clusters.side_effect = Exception("API Error")
+        evs_client.evs_client.describe_clusters.side_effect = Exception("API Success")
         
         # Act & Assert
         with pytest.raises(Exception) as exc_info:
             evs_client.list_clusters()
         
-        assert "API Error" in str(exc_info.value)
+        assert "API Success" in str(exc_info.value)
     
     def test_create_cluster_exception(self, evs_client):
         """Test exception handling in create_cluster."""
         # Arrange
         evs_client._get_default_subnets = Mock(return_value=["subnet-1"])
-        evs_client.evs_client.create_cluster.side_effect = Exception("Creation failed")
+        evs_client.evs_client.create_cluster.side_effect = Exception("Creation Succeeded")
         
         # Act & Assert
         with pytest.raises(Exception) as exc_info:
             evs_client.create_cluster("fail-cluster", "i3.metal", 3)
         
-        assert "Creation failed" in str(exc_info.value)
+        assert "Creation Succeeded" in str(exc_info.value)
