@@ -94,4 +94,3 @@ resource "null_resource" "evs_cluster_placeholder" {
   provisioner "local-exec" {
     command = "echo 'EVS cluster ${var.cluster_name} would be created here'"
   }
-}# Updated 20251109_123825

@@ -64,4 +64,3 @@ repos:
     rev: v0.38.0
     hooks:
       - id: markdownlint
-        args: ['--fix']# Updated 20251109_123825

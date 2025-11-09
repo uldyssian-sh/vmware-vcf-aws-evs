@@ -92,4 +92,3 @@ advanced:
   retry_delay: 5
   
   # Performance tuning
-  thread_pool_size: 10# Updated 20251109_123825

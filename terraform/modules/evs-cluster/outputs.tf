@@ -31,4 +31,3 @@ output "tags" {
 output "cluster_placeholder_id" {
   description = "Placeholder for EVS cluster ID"
   value       = null_resource.evs_cluster_placeholder.id
-}# Updated 20251109_123825

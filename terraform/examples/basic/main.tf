@@ -26,4 +26,3 @@ module "evs_cluster" {
     Owner       = "infrastructure-team"
     CostCenter  = "engineering"
   }
-}# Updated 20251109_123825
