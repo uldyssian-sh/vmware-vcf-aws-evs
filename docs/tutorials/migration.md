@@ -414,3 +414,4 @@ After successful migration:
 3. **[Optimize costs](../architecture/cost-optimization.md)** based on usage patterns
 4. **[Review security](../architecture/security.md)** configurations# Updated Sun Nov  9 12:49:45 CET 2025
 # Updated Sun Nov  9 12:52:32 CET 2025
+# Updated Sun Nov  9 12:56:17 CET 2025
