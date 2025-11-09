@@ -1,6 +1,5 @@
 # VMware VCF AWS EVS
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub issues](https://img.shields.io/github/issues/uldyssian-sh/vmware-vcf-aws-evs)](https://github.com/uldyssian-sh/vmware-vcf-aws-evs/issues)
 [![GitHub stars](https://img.shields.io/github/stars/uldyssian-sh/vmware-vcf-aws-evs)](https://github.com/uldyssian-sh/vmware-vcf-aws-evs/stargazers)
 [![Security](https://img.shields.io/badge/Security-Enterprise-blue.svg)](SECURITY.md)
