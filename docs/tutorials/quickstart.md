@@ -252,3 +252,4 @@ aws evs describe-clusters --region us-west-2
 - **[Getting Started Guide](https://docs.aws.amazon.com/evs/latest/userguide/getting-started.html)** - Official AWS tutorial
 - **[EVS FAQs](https://aws.amazon.com/evs/faqs/)** - Common questions and answers
 - **[Re:Invent Deep Dive](https://reinvent.awsevents.com/content/dam/reinvent/2024/slides/mam/MAM237-NEW_Deep-dive-into-Amazon-Elastic-VMware-Service.pdf)** - Technical presentation# Updated Sun Nov  9 12:49:45 CET 2025
+# Updated Sun Nov  9 12:52:32 CET 2025

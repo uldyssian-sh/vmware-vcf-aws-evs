@@ -235,3 +235,4 @@ class TestEVSClient:
             evs_client.create_cluster("fail-cluster", "i3.metal", 3)
         
         assert "Creation failed" in str(exc_info.value)# Updated Sun Nov  9 12:49:45 CET 2025
+# Updated Sun Nov  9 12:52:32 CET 2025
