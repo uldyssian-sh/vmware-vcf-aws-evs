@@ -182,7 +182,6 @@ def test_create_evs_cluster_success():
 
 - [ ] **Descriptive title** and detailed description
 - [ ] **Tests added/updated** for new functionality
-- [ ] **Documentation updated** if needed
 - [ ] **No merge conflicts** with main branch
 - [ ] **All CI checks passing**
 - [ ] **Follows coding standards**
