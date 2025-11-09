@@ -234,4 +234,4 @@ class TestEVSClient:
         with pytest.raises(Exception) as exc_info:
             evs_client.create_cluster("fail-cluster", "i3.metal", 3)
         
-        assert "Creation failed" in str(exc_info.value)
+        assert "Creation failed" in str(exc_info.value)# Updated Sun Nov  9 12:49:45 CET 2025

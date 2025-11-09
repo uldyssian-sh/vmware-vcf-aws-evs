@@ -147,4 +147,4 @@ Choose your path based on your role and requirements:
     If you're new to VMware EVS or AWS, start with our [Architecture Overview](architecture/overview.md) to understand the components and how they work together.
 
 !!! warning "Production Deployments"
-    Before deploying to production, review our [Security Best Practices](architecture/security.md) and [Troubleshooting Guide](tutorials/troubleshooting.md).
+    Before deploying to production, review our [Security Best Practices](architecture/security.md) and [Troubleshooting Guide](tutorials/troubleshooting.md).# Updated Sun Nov  9 12:49:45 CET 2025

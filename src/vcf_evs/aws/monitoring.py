@@ -45,4 +45,4 @@ class CloudWatchMonitor:
             
         except Exception as e:
             logger.error(f"Failed to get metrics for cluster {cluster_name}: {e}")
-            raise
+            raise# Updated Sun Nov  9 12:49:45 CET 2025

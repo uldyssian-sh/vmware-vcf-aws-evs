@@ -143,4 +143,4 @@ class EVSClient:
             
         except Exception as e:
             logger.error(f"Failed to get default subnets: {e}")
-            raise
+            raise# Updated Sun Nov  9 12:49:45 CET 2025

@@ -291,4 +291,4 @@ rm -rf config/config.yaml .env
 # Remove Terraform state (if applicable)
 cd terraform/examples/basic
 terraform destroy
-```
+```# Updated Sun Nov  9 12:49:45 CET 2025

@@ -74,4 +74,4 @@ def _safe_log_path(log_file: str) -> str:
     if '..' in str(safe_path) or str(safe_path).startswith('/'):
         raise ValueError("Invalid log file path detected")
     
-    return str(safe_path)
+    return str(safe_path)# Updated Sun Nov  9 12:49:45 CET 2025

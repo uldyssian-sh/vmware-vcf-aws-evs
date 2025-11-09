@@ -7,4 +7,4 @@ __description__ = "VMware Cloud Foundation AWS EVS Integration Toolkit"
 
 # Core components will be imported when needed
 
-__all__ = ["EVSClient", "VCenterClient", "ConfigManager"]
+__all__ = ["EVSClient", "VCenterClient", "ConfigManager"]# Updated Sun Nov  9 12:49:45 CET 2025
