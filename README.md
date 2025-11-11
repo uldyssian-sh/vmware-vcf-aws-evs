@@ -12,6 +12,12 @@
 [![Size](https://img.shields.io/github/repo-size/uldyssian-sh/vmware-vcf-aws-evs?style=flat-square)](#)
 [![Security Scan](https://img.shields.io/badge/security-scanned-green?style=flat-square)](#)
 
+[![License](https://img.shields.io/github/license/uldyssian-sh/vmware-vcf-aws-evs?style=flat-square)](LICENSE)
+[![Status](https://img.shields.io/badge/status-active-brightgreen?style=flat-square)](#)
+[![Languages](https://img.shields.io/github/languages/count/uldyssian-sh/vmware-vcf-aws-evs?style=flat-square)](#)
+[![Size](https://img.shields.io/github/repo-size/uldyssian-sh/vmware-vcf-aws-evs?style=flat-square)](#)
+[![Security Scan](https://img.shields.io/badge/security-scanned-green?style=flat-square)](#)
+
 [![GitHub issues](https://img.shields.io/github/issues/uldyssian-sh/vmware-vcf-aws-evs)](https://github.com/uldyssian-sh/vmware-vcf-aws-evs/issues)
 [![GitHub stars](https://img.shields.io/github/stars/uldyssian-sh/vmware-vcf-aws-evs)](https://github.com/uldyssian-sh/vmware-vcf-aws-evs/stargazers)
 [![Security](https://img.shields.io/badge/Security-Enterprise-blue.svg)](SECURITY.md)
@@ -42,6 +48,12 @@ Professional VMware Cloud Foundation AWS External Virtual Storage solution with 
 
 ```bash
 # Clone repository
+
+[![License](https://img.shields.io/github/license/uldyssian-sh/vmware-vcf-aws-evs?style=flat-square)](LICENSE)
+[![Status](https://img.shields.io/badge/status-active-brightgreen?style=flat-square)](#)
+[![Languages](https://img.shields.io/github/languages/count/uldyssian-sh/vmware-vcf-aws-evs?style=flat-square)](#)
+[![Size](https://img.shields.io/github/repo-size/uldyssian-sh/vmware-vcf-aws-evs?style=flat-square)](#)
+[![Security Scan](https://img.shields.io/badge/security-scanned-green?style=flat-square)](#)
 
 [![License](https://img.shields.io/github/license/uldyssian-sh/vmware-vcf-aws-evs?style=flat-square)](LICENSE)
 [![Status](https://img.shields.io/badge/status-active-brightgreen?style=flat-square)](#)
