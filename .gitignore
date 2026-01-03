@@ -285,3 +285,6 @@ $RECYCLE.BIN/
 .directory
 .Trash-*
 .nfs*
+
+# Security - Sensitive Files
+config.json
