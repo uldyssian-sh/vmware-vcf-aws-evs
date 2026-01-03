@@ -163,5 +163,4 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 
 ---
 
-⭐ **Star this repository if you find it helpful!**
-
+⭐ Star this repository if you find it helpful!
