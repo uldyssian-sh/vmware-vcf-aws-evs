@@ -163,4 +163,4 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 
 ---
 
-⭐ Star this repository if you find it helpful!
+Maintained by: uldyssian-sh⭐ Star this repository if you find it helpful!Disclaimer: Use of this code is at your own risk. Author bears no responsibility for any damages caused by the code.
